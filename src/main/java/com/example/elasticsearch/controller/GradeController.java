@@ -3,6 +3,7 @@ package com.example.elasticsearch.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,17 +12,39 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpServerErrorException;
 
+import com.example.elasticsearch.dto.GradeDTO;
+import com.example.elasticsearch.model.Curriculum;
 import com.example.elasticsearch.model.Grade;
+import com.example.elasticsearch.repository.CurriculumRepository;
 import com.example.elasticsearch.repository.GradeRepository;
+
+import io.micrometer.common.util.StringUtils;
 
 @RestController
 @RequestMapping("/api/grades")
 public class GradeController {
     @Autowired
     private GradeRepository repository;
+
+    @Autowired
+    private CurriculumRepository curriculumRepository;
+
     @PostMapping
-    public Grade create(@RequestBody Grade grade) {
+    public Grade create(@RequestBody GradeDTO gradeDTO) {
+        if (gradeDTO == null || StringUtils.isBlank(gradeDTO.getCurriculumId())){
+            throw new HttpServerErrorException(HttpStatusCode.valueOf(400), 
+                "Empty curriculum-id supplied");
+        }
+        final Optional<Curriculum> curriculum = 
+            curriculumRepository.findById(gradeDTO.getCurriculumId());
+        if (curriculum.isEmpty()) {
+            throw new HttpServerErrorException(HttpStatusCode.valueOf(400), 
+                "Invalid curriculum-id supplied");
+        }
+        final Grade grade = gradeDTO.toGrade();
+        grade.setCurriculum(curriculum.get());
         return repository.save(grade);
     }
     @GetMapping("/{id}")

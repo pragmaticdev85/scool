@@ -1,0 +1,59 @@
+shnmkhk@shnmkhk-pc:~/ws/scool$ ./test.data.sh 
+List of contact-addresses after creation
+[
+  {
+    "id": "CuCzqZsBB31v0WOOM41m",
+    "lineOne": "l1",
+    "lineTwo": "l2",
+    "lineThree": "l3",
+    "city": "New Delhi",
+    "state": "Delhi",
+    "country": "India",
+    "zipCode": "110001"
+  }
+]
+List of curricula after creation
+[
+  {
+    "id": "CuCzqZsBB31v0WOOM41m",
+    "name": "CBSE",
+    "description": "Central Board of Secondary Education",
+    "board": "CBSE",
+    "pointOfContact": "Mr. Ankit Sharma, PHD",
+    "contactAddress": {
+      "id": "CuCzqZsBB31v0WOOM41m",
+      "lineOne": "l1",
+      "lineTwo": "l2",
+      "lineThree": "l3",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "zipCode": "110001"
+    }
+  }
+]
+List of grades after creation
+[
+  {
+    "id": "Grade-I",
+    "name": "Grade-I",
+    "description": "Grade-I",
+    "curriculum": {
+      "id": "CuCzqZsBB31v0WOOM41m",
+      "name": "CBSE",
+      "description": "Central Board of Secondary Education",
+      "board": "CBSE",
+      "pointOfContact": "Mr. Ankit Sharma, PHD",
+      "contactAddress": {
+        "id": "CuCzqZsBB31v0WOOM41m",
+        "lineOne": "l1",
+        "lineTwo": "l2",
+        "lineThree": "l3",
+        "city": "New Delhi",
+        "state": "Delhi",
+        "country": "India",
+        "zipCode": "110001"
+      }
+    }
+  }
+]
