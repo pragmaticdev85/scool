@@ -34,4 +34,9 @@ public class EmployeeController {
     public void delete(@PathVariable String id) {
         repository.deleteById(id);
     }
+
+    @DeleteMapping("/all")
+    public void deleteAll(){
+        repository.deleteAll();
+    }
 }
