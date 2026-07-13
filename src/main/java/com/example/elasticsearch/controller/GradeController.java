@@ -35,13 +35,13 @@ public class GradeController {
     public Grade create(@RequestBody GradeDTO gradeDTO) {
         if (gradeDTO == null || StringUtils.isBlank(gradeDTO.getCurriculumId())){
             throw new HttpServerErrorException(HttpStatusCode.valueOf(400), 
-                "Empty curriculum-id supplied");
+                "curriculum-id shall not be empty");
         }
         final Optional<Curriculum> curriculum = 
             curriculumRepository.findById(gradeDTO.getCurriculumId());
         if (curriculum.isEmpty()) {
             throw new HttpServerErrorException(HttpStatusCode.valueOf(400), 
-                "Invalid curriculum-id supplied");
+                "The supplied curriculum-id doesn't exist");
         }
         final Grade grade = gradeDTO.toGrade();
         grade.setCurriculum(curriculum.get());

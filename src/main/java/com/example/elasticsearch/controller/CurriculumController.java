@@ -40,7 +40,7 @@ public class CurriculumController {
         final Optional<ContactAddress> contactAddress = contactAddressRepository.findById(curriculumDTO.getContactAddressId());
         if (contactAddress.isEmpty()) {
             throw new HttpServerErrorException(HttpStatusCode.valueOf(400), 
-                "Invalid contact-address-id supplied");
+                "The supplied contact-address-id doesn't exist");
         }
         Curriculum curriculum = curriculumDTO.toCurriculum();
         curriculum.setContactAddress(contactAddress.get());
